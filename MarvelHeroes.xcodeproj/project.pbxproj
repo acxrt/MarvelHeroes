@@ -14,6 +14,8 @@
 		8BFEF4D21ED2067400D407DD /* MarvelHeroes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BFEF4D01ED2067400D407DD /* MarvelHeroes.xcdatamodeld */; };
 		8BFEF4D41ED2067400D407DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BFEF4D31ED2067400D407DD /* Assets.xcassets */; };
 		8BFEF4D71ED2067400D407DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BFEF4D51ED2067400D407DD /* LaunchScreen.storyboard */; };
+		8BFEF4E01ED20B1E00D407DD /* HeroesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFEF4DF1ED20B1E00D407DD /* HeroesService.swift */; };
+		8BFEF4E21ED20C4500D407DD /* MarvelAPIInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BFEF4E11ED20C4500D407DD /* MarvelAPIInfo.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		8BFEF4D31ED2067400D407DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BFEF4D61ED2067400D407DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BFEF4D81ED2067400D407DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BFEF4DF1ED20B1E00D407DD /* HeroesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroesService.swift; sourceTree = "<group>"; };
+		8BFEF4E11ED20C4500D407DD /* MarvelAPIInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPIInfo.plist; sourceTree = "<group>"; };
 		D1826AAED7A9E80CE78A9ECE /* Pods-MarvelHeroes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelHeroes.release.xcconfig"; path = "Pods/Target Support Files/Pods-MarvelHeroes/Pods-MarvelHeroes.release.xcconfig"; sourceTree = "<group>"; };
 		E96FBF30894F4AE39224293D /* Pods-MarvelHeroes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelHeroes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarvelHeroes/Pods-MarvelHeroes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +76,7 @@
 		8BFEF4C81ED2067400D407DD /* MarvelHeroes */ = {
 			isa = PBXGroup;
 			children = (
+				8BFEF4DE1ED20B0A00D407DD /* Services */,
 				8BFEF4C91ED2067400D407DD /* AppDelegate.swift */,
 				8BFEF4CB1ED2067400D407DD /* ViewController.swift */,
 				8BFEF4CD1ED2067400D407DD /* Main.storyboard */,
@@ -81,6 +86,15 @@
 				8BFEF4D01ED2067400D407DD /* MarvelHeroes.xcdatamodeld */,
 			);
 			path = MarvelHeroes;
+			sourceTree = "<group>";
+		};
+		8BFEF4DE1ED20B0A00D407DD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8BFEF4DF1ED20B1E00D407DD /* HeroesService.swift */,
+				8BFEF4E11ED20C4500D407DD /* MarvelAPIInfo.plist */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		A8E5A7250C7D50655A693B2D /* Frameworks */ = {
@@ -156,6 +170,7 @@
 			files = (
 				8BFEF4D71ED2067400D407DD /* LaunchScreen.storyboard in Resources */,
 				8BFEF4D41ED2067400D407DD /* Assets.xcassets in Resources */,
+				8BFEF4E21ED20C4500D407DD /* MarvelAPIInfo.plist in Resources */,
 				8BFEF4CF1ED2067400D407DD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BFEF4CC1ED2067400D407DD /* ViewController.swift in Sources */,
+				8BFEF4E01ED20B1E00D407DD /* HeroesService.swift in Sources */,
 				8BFEF4CA1ED2067400D407DD /* AppDelegate.swift in Sources */,
 				8BFEF4D21ED2067400D407DD /* MarvelHeroes.xcdatamodeld in Sources */,
 			);
@@ -381,6 +397,7 @@
 				8BFEF4DD1ED2067400D407DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
