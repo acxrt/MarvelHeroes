@@ -31,6 +31,8 @@ class HeroesListViewController: UIViewController, UITableViewDelegate, UITableVi
         }) { (error) in
             print(error)
         }
+        
+        navigationItem.title = "Heroes"
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,4 +68,16 @@ class HeroesListViewController: UIViewController, UITableViewDelegate, UITableVi
         return 70.0
     }
     
+    
+    //MARK - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetail" , let detailScene = segue.destination as? HeroesDetailViewController  {
+            
+            if let selectedCellPath = tableView.indexPathForSelectedRow {
+                let selectedCell: HeroeCell = tableView.cellForRow(at: selectedCellPath) as! HeroeCell
+                
+                    detailScene.heroe = selectedCell.heroeInfo
+            }
+        }
+    }
 }
