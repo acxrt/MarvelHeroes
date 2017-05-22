@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 
-class HeroesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HeroesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var heroesList: Array<Heroe> = Array()
-    
+    var heroesFiltered: Array<Heroe> = Array()
+    var searchActive : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +25,12 @@ class HeroesListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         tableView.estimatedRowHeight = 70.0
         
+        searchBar.delegate = self
+        
         HeroesService.allHeroes(success: {list in
             
             self.heroesList = list as! Array<Heroe>
+            self.heroesFiltered = list as! Array<Heroe>
             self.tableView.reloadData()
             
         }) { (error) in
@@ -35,17 +40,43 @@ class HeroesListViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationItem.title = "Heroes"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tableView.contentInset = UIEdgeInsets.zero
+        registerForKeyboardNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        deregisterFromKeyboardNotifications()
+
+    }
+    
+    // MARK - Table View Delegate & DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.heroesList.count
+        
+        if(searchActive) {
+            return heroesFiltered.count
+        }
+        
+        return heroesList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let heroe: Heroe = heroesList[indexPath.row]
+        var heroe: Heroe = Heroe()
+        if(searchActive) {
+            heroe = heroesFiltered[indexPath.row]
+        } else{
+            heroe = heroesList[indexPath.row]
+        }
+        
         var thumbnail = ""
         
         if let path = heroe.thumbnail["path"], let imageExtension = heroe.thumbnail["extension"]{
@@ -69,6 +100,44 @@ class HeroesListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+    // MARK - Search Bar
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+        heroesFiltered = heroesList
+        tableView.reloadData()
+        view.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+        view.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        heroesFiltered = heroesList.filter({ (heroe) -> Bool in
+            let tmp: String = heroe.name
+            return tmp.localizedCaseInsensitiveContains(searchText)
+            
+        })
+        if(heroesFiltered.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        tableView.reloadData()
+    }
+    
+    
+    
     //MARK - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetail" , let detailScene = segue.destination as? HeroesDetailViewController  {
@@ -80,4 +149,39 @@ class HeroesListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
+    
+    // MARK: - Keyboard
+    func registerForKeyboardNotifications(){
+        //Adding notifies on keyboard appearing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func deregisterFromKeyboardNotifications(){
+        //Removing notifies on keyboard appearing
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    
+    
+    func keyboardWasShown(notification: NSNotification){
+        
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        tableView.contentInset = contentInsets
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification){
+        
+        let contentInsets : UIEdgeInsets = UIEdgeInsets.zero
+        
+        tableView.contentInset = contentInsets
+        
+        self.view.endEditing(true)
+        
+    }
 }
+

@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-Uh-XOT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yeG-ub-jMB" id="EyL-kz-oyB">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OnX-s5-DlL">
@@ -68,17 +68,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search heroe" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tZA-sw-A7A">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="D1B-Uh-XOT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0ji-aT-uWg"/>
+                            <constraint firstItem="tZA-sw-A7A" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="2zq-f6-Nvg"/>
+                            <constraint firstItem="D1B-Uh-XOT" firstAttribute="top" secondItem="tZA-sw-A7A" secondAttribute="bottom" id="5BK-CU-9IH"/>
                             <constraint firstAttribute="trailing" secondItem="D1B-Uh-XOT" secondAttribute="trailing" id="RKx-ue-log"/>
+                            <constraint firstItem="tZA-sw-A7A" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SIa-4u-tHh"/>
+                            <constraint firstAttribute="trailing" secondItem="tZA-sw-A7A" secondAttribute="trailing" id="f61-T4-oyI"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="D1B-Uh-XOT" secondAttribute="bottom" id="sij-Rh-NTU"/>
-                            <constraint firstItem="D1B-Uh-XOT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="snT-II-vW2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="w9w-C3-wwB"/>
                     <connections>
+                        <outlet property="searchBar" destination="tZA-sw-A7A" id="rfz-jh-dRv"/>
                         <outlet property="tableView" destination="D1B-Uh-XOT" id="09e-as-Rb0"/>
                     </connections>
                 </viewController>
